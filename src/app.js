@@ -17,6 +17,7 @@ canvas.style.height = height + 'px';
 
 const horizon = canvas.width / 2;
 const yCenter = canvas.height / 2;
+const diagonal = Math.sqrt(horizon * horizon + yCenter * yCenter);
 function animate(time) {
   requestAnimationFrame(animate);
 
@@ -28,8 +29,11 @@ function animate(time) {
   for (let x = 0; x < canvas.width; x++) {
     for (let y = 0; y < canvas.height; y++) {
       let i = (y * canvas.width + x) * 4;
-      let d = Math.abs(x - horizon);
-      let distortion = (d + Math.abs(y - yCenter)) / (horizon + yCenter);
+      let xd = Math.abs(x - horizon);
+      let yd = Math.abs(y - yCenter);
+      let distortion = (xd + Math.abs(y - yCenter)) / (horizon + yCenter);
+      distortion = Math.sqrt(xd * xd + yd * yd) / diagonal;
+      let d = xd * (1 - distortion * 0.0001);
       let seed = Math.round((Math.cos(d * d + slowTime) + 1) / 2) * 255;
       pixels[i + 1] = seed;
       pixels[i + 0] = Math.round((Math.sin(d * d + slowTime) + 1) / 2) * 255
