@@ -4,6 +4,7 @@
     "build": "parcel build --public-url '.' src/index.html"
   },
   "devDependencies": {
+    "native-file-system-adapter": "^2.0.1",
     "parcel": "^2.2.0"
   }
 }
